@@ -1,0 +1,2001 @@
+
+		t121.Update = (function(c0,c1)
+			return (function(T)
+			local U = T[1]
+			local c = T[0]
+			return function(T, z)
+				if z then
+					if not T._anyVisible then
+						return
+					end
+					for z, z in T._limbConnections do
+						if z.visible then
+							z.visible = false
+							z.frame.Visible = false
+						end
+					end
+					T._anyVisible = false
+					return
+				end
+				local z = false
+				for h, h in T._limbConnections do
+					local K = h.frame
+					local p, i = U(h.part0.Position)
+					if i <= 0 then
+						if h.visible then
+							h.visible = false
+							K.Visible = false
+						end
+						continue
+					end
+					local i, D = U(h.part1.Position)
+					if D <= 0 then
+						if h.visible then
+							h.visible = false
+							K.Visible = false
+						end
+						continue
+					end
+					c(K, p, i, T._thickness)
+					z = true
+					if not h.visible then
+						h.visible = true
+						K.Visible = true
+					end
+				end
+				T._anyVisible = z
+			end
+		end)({[0]=c0,[1]=c1})
+		end)(v94, v95)
+
+		function t121:Destroy()
+			self._trove:Destroy()
+			self:_ClearAllLimbConnections()
+		end
+
+		return t121
+	end
+
+	local function f3211(p123, p124)
+		local v104
+		v104 = p123.X == 0
+		v104 = v104 and up0 or -up0
+		local v105
+		v105 = p123.Y == 0
+		v105 = v105 and up0 or -up0
+		local v106 = Instance.new(up1)
+		v106.Visible = false
+		v106.BackgroundColor3 = Color3.new(0, 0, 0)
+		v106.BorderSizePixel = 0
+		v106.Interactable = false
+		v106.AnchorPoint = p123
+		v106.Position = UDim2.fromScale(p123.X, p123.Y)
+		v106.Size = UDim2.new(
+			p124.X.Scale,
+			p124.X.Offset + 2 * up0,
+			p124.Y.Scale,
+			p124.Y.Offset + 2 * up0
+		)
+		v106.ZIndex = 2
+		v106.Parent = up2
+		local v107 = Instance.new(up1)
+		v107.Visible = false
+		v107.BackgroundColor3 = Color3.new(1, 1, 1)
+		v107.BorderSizePixel = 0
+		v107.Interactable = false
+		v107.AnchorPoint = p123
+		v107.Position = UDim2.new(p123.X, v104, p123.Y, v105)
+		v107.Size = p124
+		v107.ZIndex = 3
+		v107.Parent = up2
+		return v106, v107
+	end
+
+	local function f3212(p125, p126)
+		local f3213 = table.create(3)
+		Vector2.new(0, 0)
+		Vector2.new(1, 0)
+		Vector2.new(0, 1)
+
+		local function f3214(p127, p128)
+			local v108
+			v108 = p127.X == 0
+			v108 = v108 and up0 or -up0
+			local v109
+			v109 = p127.Y == 0
+			v109 = v109 and up0 or -up0
+			local v110 = Instance.new(up1)
+			v110.Visible = false
+			v110.BackgroundColor3 = Color3.new(0, 0, 0)
+			v110.BorderSizePixel = 0
+			v110.Interactable = false
+			v110.AnchorPoint = p127
+			v110.Position = UDim2.fromScale(p127.X, p127.Y)
+			v110.Size = UDim2.new(
+				p128.X.Scale,
+				p128.X.Offset + 2 * up0,
+				p128.Y.Scale,
+				p128.Y.Offset + 2 * up0
+			)
+			v110.ZIndex = 2
+			v110.Parent = p126
+			local v111 = Instance.new(up1)
+			v111.Visible = false
+			v111.BackgroundColor3 = Color3.new(1, 1, 1)
+			v111.BorderSizePixel = 0
+			v111.Interactable = false
+			v111.AnchorPoint = p127
+			v111.Position = UDim2.new(p127.X, v108, p127.Y, v109)
+			v111.Size = p128
+			v111.ZIndex = 3
+			v111.Parent = p126
+			return v110, v111
+		end
+
+		local v112 = nil
+		Vector2.new(1, 1)
+		while true do
+			local v113
+			v112, v113 = f3213(nil, v112)
+			if v112 == nil then
+				break
+			end
+			local v114, v115
+			v115, v114 = f3214(v113, UDim2.new(up2, 0, 0, up3))
+			local v116, v117
+			v117, v116 = f3214(v113, UDim2.new(0, up3, up2, 0))
+			local _corners = p125._corners
+			local t129 = {
+				horizontalBacker = v115,
+				horizontalColor = v114,
+				verticalBacker = v117,
+				verticalColor = v116
+			}
+			_corners[v112] = t129
+		end
+	end
+
+	local function f3215(p129, p130, p131, p132, p133)
+		local SetEmote = p129._emotes:SetEmote(p130, p131, p132)
+		if SetEmote and p133 then
+			p129:_FireStoresUpdated()
+		end
+		return SetEmote
+	end
+
+	local function f3216(p134, p135, p136)
+		if p134.AnimationSpeed ~= p135 then
+			p134.AnimationSpeed = p135
+			local _panel4 = p134._panel
+			if _panel4 ~= nil then
+				_panel4.SyncAnimation(p134.AnimationMode, p135)
+			end
+			if not p136 then
+				p134.AnimationSpeedChanged:Fire(p135)
+			end
+		end
+		return p134
+	end
+
+	local function f3217(...)
+		local _ = 15504 + ((false)(nil) + 221) + -15878
+		local t130 = up0.cache.as
+		if not t130 then
+			t130 = { c = up1() }
+			up0.cache.as = t130
+		end
+		return t130.c
+	end
+
+	local function f3218()
+	end
+	local function f3219()
+	end
+
+	local function f3220(p137, p138, p139, p140, p141)
+		local v118 = 0
+		for i4 = 1, 3 do
+			local v120 = up0[i4]
+			local v121 = math.abs(p139 - (p140 + v120))
+			if v121 < up1 then
+				local v122 = 1 - v121 / up1
+				if v118 < v122 then
+					v118 = v122
+				end
+			end
+			local v123 = math.abs(p139 - (p141 + v120))
+			if v123 < up1 then
+				local v124 = 1 - v123 / up1
+				if v118 < v124 then
+					v118 = v124
+				end
+			end
+		end
+		if v118 <= 0 then
+			return p137
+		end
+		return (p137:Lerp(p138, v118))
+	end
+
+	local function f3221(p142)
+		local t131 = {
+			_corners = table.create(4),
+			_enabled = false,
+			_innerColor = Color3.new(1, 1, 1),
+			_look = up0.None
+		}
+		setmetatable(t131, up1)
+		t131:_Initialize(p142)
+		return t131
+	end
+
+	local function f3222(p143)
+		local kind9 = p143._look.kind
+		if not (kind9 == "Perimeter" or kind9 == "PingPong") then
+			local _corners2 = p143._corners
+			local v125 = nil
+			while true do
+				local t132
+				v125, t132 = _corners2(nil, v125)
+				if v125 == nil then
+					break
+				end
+				t132.horizontalColor.BackgroundColor3 = p143._innerColor
+				t132.verticalColor.BackgroundColor3 = p143._innerColor
+			end
+		end
+		local _corners3 = p143._corners
+		local v126 = nil
+		while true do
+			local t133
+			v126, t133 = _corners3(nil, v126)
+			if v126 == nil then
+				break
+			end
+			t133.horizontalColor.BackgroundTransparency = 0
+			t133.verticalColor.BackgroundTransparency = 0
+			t133.horizontalBacker.BackgroundTransparency = 0
+			t133.verticalBacker.BackgroundTransparency = 0
+		end
+	end
+
+	local function f3223(p144)
+		local _corners4 = p144._corners
+		local v127 = nil
+		while true do
+			local t134
+			v127, t134 = _corners4(nil, v127)
+			if v127 == nil then
+				break
+			end
+			t134.horizontalBacker:Destroy()
+			t134.horizontalColor:Destroy()
+			t134.verticalBacker:Destroy()
+			t134.verticalColor:Destroy()
+		end
+	end
+
+	local function f3224()
+		local v128 = up0.d5()
+		local v129 = up0.d3()
+		local v130 = up0.el()
+		local v131 = up0.eo()
+		local v132 = table.create(4)
+		local v133 = table.create(4)
+		local v134 = table.create(4)
+		local v135 = table.create(3)
+		local v136 = 0.4
+
+		local function f3225(p145, p146, p147, p148, p149)
+			local v137 = 0
+			for i5 = 1, 3 do
+				local v139 = v135[i5]
+				local v140 = math.abs(p147 - (p148 + v139))
+				if v140 < v136 then
+					local v141 = 1 - v140 / v136
+					if v137 < v141 then
+						v137 = v141
+					end
+				end
+				local v142 = math.abs(p147 - (p149 + v139))
+				if v142 < v136 then
+					local v143 = 1 - v142 / v136
+					if v137 < v143 then
+						v137 = v143
+					end
+				end
+			end
+			if v137 <= 0 then
+				return p145
+			end
+			return (p145:Lerp(p146, v137))
+		end
+
+		local t135 = {}
+		t135.__index = t135
+
+		function t135.new(p150)
+			local t136 = {
+				_corners = table.create(4),
+				_enabled = false,
+				_innerColor = Color3.new(1, 1, 1),
+				_look = v130.None
+			}
+			setmetatable(t136, t135)
+			t136:_Initialize(p150)
+			return t136
+		end
+
+		local v144 = 1
+		local v145 = 0.25
+		local v146 = 1
+
+		function t135:_Initialize(p151)
+			local f3226 = table.create(3)
+			Vector2.new(0, 0)
+			Vector2.new(1, 0)
+			Vector2.new(0, 1)
+
+			local function f3227(p152, p153)
+				local v147
+				v147 = p152.X == 0
+				v147 = v147 and v144 or -v144
+				local v148
+				v148 = p152.Y == 0
+				v148 = v148 and v144 or -v144
+				local v149 = Instance.new(up1)
+				v149.Visible = false
+				v149.BackgroundColor3 = Color3.new(0, 0, 0)
+				v149.BorderSizePixel = 0
+				v149.Interactable = false
+				v149.AnchorPoint = p152
+				v149.Position = UDim2.fromScale(p152.X, p152.Y)
+				v149.Size = UDim2.new(
+					p153.X.Scale,
+					p153.X.Offset + 2 * v144,
+					p153.Y.Scale,
+					p153.Y.Offset + 2 * v144
+				)
+				v149.ZIndex = 2
+				v149.Parent = p151
+				local v150 = Instance.new(up1)
+				v150.Visible = false
+				v150.BackgroundColor3 = Color3.new(1, 1, 1)
+				v150.BorderSizePixel = 0
+				v150.Interactable = false
+				v150.AnchorPoint = p152
+				v150.Position = UDim2.new(p152.X, v147, p152.Y, v148)
+				v150.Size = p153
+				v150.ZIndex = 3
+				v150.Parent = p151
+				return v149, v150
+			end
+
+			local v151 = nil
+			Vector2.new(1, 1)
+			while true do
+				local v152
+				v151, v152 = f3226(nil, v151)
+				if v151 == nil then
+					break
+				end
+				local v153, v154
+				v154, v153 = f3227(v152, UDim2.new(v145, 0, 0, v146))
+				local v155, v156
+				v156, v155 = f3227(v152, UDim2.new(0, v146, v145, 0))
+				local _corners5 = self._corners
+				local t137 = {
+					horizontalBacker = v154,
+					horizontalColor = v153,
+					verticalBacker = v156,
+					verticalColor = v155
+				}
+				_corners5[v151] = t137
+			end
+		end
+
+		local o_2 = o_
+		local v157
+		v157 = 0 < #(72746)[3]
+		o_2(v157 and {})
+		function t135._Refresh()
+		end
+		local L_2 = L_
+		local v158
+		v158 = 0 < #(113817)[3]
+		L_2(v158 and {})
+		function t135.SetEnabled()
+		end
+		local O_2 = O_
+		local v159
+		v159 = 0 < #(77645)[3]
+		O_2(v159 and {})
+		function t135.SetOutlineColor()
+		end
+
+		function t135._ApplyLook(p154)
+			local kind10 = p154._look.kind
+			if not (kind10 == "Perimeter" or kind10 == "PingPong") then
+				local _corners6 = p154._corners
+				local v160 = nil
+				while true do
+					local t138
+					v160, t138 = _corners6(nil, v160)
+					if v160 == nil then
+						break
+					end
+					t138.horizontalColor.BackgroundColor3 = p154._innerColor
+					t138.verticalColor.BackgroundColor3 = p154._innerColor
+				end
+			end
+			local _corners7 = p154._corners
+			local v161 = nil
+			while true do
+				local t139
+				v161, t139 = _corners7(nil, v161)
+				if v161 == nil then
+					break
+				end
+				t139.horizontalColor.BackgroundTransparency = 0
+				t139.verticalColor.BackgroundTransparency = 0
+				t139.horizontalBacker.BackgroundTransparency = 0
+				t139.verticalBacker.BackgroundTransparency = 0
+			end
+		end
+
+		local u_2 = u_
+		local v162
+		v162 = 0 < #(65920)[3]
+		u_2(v162 and {})
+		function t135.SetLook()
+		end
+		function t135.Update()
+		end
+
+		function t135:Destroy()
+			local _corners8 = self._corners
+			local v163 = nil
+			while true do
+				local t140
+				v163, t140 = _corners8(nil, v163)
+				if v163 == nil then
+					break
+				end
+				t140.horizontalBacker:Destroy()
+				t140.horizontalColor:Destroy()
+				t140.verticalBacker:Destroy()
+				t140.verticalColor:Destroy()
+			end
+		end
+
+		return t135
+	end
+
+	local function f3228()
+		up0:SetItems(up1(up2.Charms, up3))
+		up4()
+	end
+
+	local function f3229()
+		local t141 = up0.cache.ig
+		if not t141 then
+			t141 = { c = up1() }
+			up0.cache.ig = t141
+		end
+		return t141.c
+	end
+
+	local function f3230()
+		local t142 = {
+			_proposed = {},
+			changed = up0.new()
+		}
+		return (setmetatable(t142, up1))
+	end
+
+	local function f3231()
+		local t143 = up0.cache.fV
+		if not t143 then
+			t143 = { c = up1() }
+			up0.cache.fV = t143
+		end
+		return t143.c
+	end
+
+	local function f3232(p155, p156, p157)
+		local Unit3 = p155.Unit
+		local Cross = Unit3:Cross(Vector3.yAxis)
+		if Cross.Magnitude < 0.001 then
+			Cross = Unit3:Cross(Vector3.xAxis)
+		end
+		local Unit4 = Cross.Unit
+		local Cross2 = Unit4:Cross(Unit3)
+		local v164 = CFrame.fromMatrix(Vector3.zero, Unit4, Cross2, -Unit3)
+		local v165 = math.cos(p156)
+		local v166 = math.cos(p157)
+		return (v164 * CFrame.Angles(0, 0, math.random() * 2 * math.pi) * CFrame.Angles(
+			math.acos(v166 + math.random() * (v165 - v166)),
+			0,
+			0
+		)).LookVector
+	end
+
+	local function f3233()
+		local function f3234(p158, p159, p160)
+			local Unit5 = p158.Unit
+			local Cross3 = Unit5:Cross(Vector3.yAxis)
+			if Cross3.Magnitude < 0.001 then
+				Cross3 = Unit5:Cross(Vector3.xAxis)
+			end
+			local Unit6 = Cross3.Unit
+			local Cross4 = Unit6:Cross(Unit5)
+			local v167 = CFrame.fromMatrix(Vector3.zero, Unit6, Cross4, -Unit5)
+			local v168 = math.cos(p159)
+			local v169 = math.cos(p160)
+			return (v167 * CFrame.Angles(0, 0, math.random() * 2 * math.pi) * CFrame.Angles(
+				math.acos(v169 + math.random() * (v168 - v169)),
+				0,
+				0
+			)).LookVector
+		end
+
+		return f3234
+	end
+
+	local function f3235()
+		while up0.cache.ag do
+		end
+		local t144 = { c = up1() }
+		up0.cache.ag = t144
+		return t144.c
+	end
+
+	local function f3236(p161)
+		local _guard = p161._guard
+		if _guard == nil then
+			return
+		end
+		local CameraFov = up0.data.CameraFov
+		if CameraFov.Enabled then
+			_guard:SetOverride("FieldOfView", CameraFov.Value)
+		else
+			_guard:ClearOverride("FieldOfView")
+		end
+	end
+
+	local function f3237(...)
+		local v170 = nil
+		repeat
+			if not up0.cache.P then
+				v170 = false
+			end
+		until v170
+		local t145 = { c = up1() }
+		up0.cache.P = t145
+		return t145.c
+	end
+
+	local function f3238(_, p162, p163)
+		up0[p162] = p163
+	end
+
+	local function f3239()
+		up0:_ClearContext()
+	end
+
+	local function f3240(p164)
+		up0:_ClearContext()
+		local Add46 = up0._contextTrove:Add(up1.new(p164.character))
+		local Add47 = up0._contextTrove:Add(up2.new(p164, Add46))
+		Add47:Initialize()
+		local v171 = up3.new(p164)
+		local t146 = { characterController = Add46, itemBehaviors = Add47, loadoutPicker = v171 }
+		up0.inner = t146
+		up0.contextAdded:Fire(t146)
+	end
+
+	local function f3241(p165)
+		local function f3242(p166)
+			p165:_ClearContext()
+			local Add48 = p165._contextTrove:Add(up1.new(p166.character))
+			local Add49 = p165._contextTrove:Add(up2.new(p166, Add48))
+			Add49:Initialize()
+			local v172 = up3.new(p166)
+			local t147 = { characterController = Add48, itemBehaviors = Add49, loadoutPicker = v172 }
+			p165.inner = t147
+			p165.contextAdded:Fire(t147)
+		end
+
+		p165._trove:Connect(p165._fighters.onLocalStateSet, f3242)
+
+		local function f3243()
+			p165:_ClearContext()
+		end
+
+		p165._trove:Connect(p165._fighters.onLocalStateRemoved, f3243)
+		local localState14 = p165._fighters.localState
+		if localState14 then
+			f3242(localState14)
+		end
+	end
+
+	local function f3244()
+		local t148 = up0.cache.aS
+		if not t148 then
+			t148 = { c = up1() }
+			up0.cache.aS = t148
+		end
+		return t148.c
+	end
+
+	local function f3245()
+		local t149 = up0
+		local Tween67 = t149.Tween
+		local v173 = up1
+		local t150 = { TextColor3 = up2.get("TextColor") }
+		Tween67(t149, v173, t150)
+		if up3.FocusLostOnly then
+			up3:Set(up1.Text)
+		end
+	end
+
+	local function f3246(p167)
+		if not (up0.Text == p167 or up0:IsFocused()) then
+			up0.Text = p167
+		end
+	end
+
+	local function f3247(p168)
+		if up0.TextSize ~= up1 then
+			up0.TextSize = up1
+		end
+		local v174 = up0.AbsoluteSize.X
+		if up2.MaxWidth < v174 then
+			up0.TextSize = math.max(math.floor(up1 * (up2.MaxWidth / v174)), up3)
+			v174 = up2.MaxWidth
+		end
+		local v175 = UDim2.fromOffset(v174 + up4, 22)
+		if p168 then
+			local t151 = up5
+			local Tween68 = t151.Tween
+			local t152 = { Size = v175 }
+			Tween68(t151, up6, t152, up7)
+		else
+			up6.Size = v175
+		end
+	end
+
+	local function f3248()
+		up0(true)
+		if not up1.FocusLostOnly then
+			up1:Set(up2.Text)
+		end
+	end
+
+	local function f3249()
+		up0(false)
+	end
+
+	local function new_tween_info(p169, p170, p171)
+		local _menu14 = p169._menu
+		local v176 = Instance.new(up0)
+		v176.ClipsDescendants = true
+		v176.AnchorPoint = Vector2.new(1, 0)
+		v176.Position = UDim2.new(1, -1, 0, 1)
+		v176.Size = UDim2.fromOffset(0, 22)
+		v176.BorderSizePixel = 0
+		p171.Batch:Bind(v176, "BackgroundColor3", "Background")
+		v176.Parent = p170
+		local uiSizeConstraint = Instance.new("UISizeConstraint")
+		uiSizeConstraint.MinSize = Vector2.new(math.min(p169.MaxWidth + 12, 48), 22)
+		uiSizeConstraint.MaxSize = Vector2.new(p169.MaxWidth + 12, 22)
+		uiSizeConstraint.Parent = v176
+		local uiCorner4 = Instance.new("UICorner")
+		uiCorner4.CornerRadius = UDim.new(0, 5)
+		uiCorner4.Parent = v176
+		local uiStroke2 = Instance.new("UIStroke")
+		p171.Batch:Bind(uiStroke2, "Color", "Outline")
+		uiStroke2.Parent = v176
+		local textBox = Instance.new("TextBox")
+		textBox.ClearTextOnFocus = false
+		textBox.PlaceholderText = p169.Placeholder
+		textBox.FontFace = up1
+		textBox.Text = ""
+		textBox.AnchorPoint = Vector2.new(0, 0.5)
+		textBox.BorderSizePixel = 0
+		textBox.BackgroundTransparency = 1
+		textBox.Position = UDim2.new(0, 5, 0.5, 0)
+		textBox.AutomaticSize = Enum.AutomaticSize.XY
+		textBox.TextSize = up2
+		textBox.Selectable = false
+		textBox.Active = true
+		p171.Batch:Bind(textBox, "TextColor3", "TextColor")
+		textBox.Parent = v176
+		local uiPadding2 = Instance.new("UIPadding")
+		uiPadding2.PaddingRight = UDim.new(0, 5)
+		uiPadding2.PaddingLeft = UDim.new(0, 1)
+		uiPadding2.Parent = textBox
+		local t154 = { Outline = v176, Input = textBox }
+		p169._rt = t154
+		local v181 = 12
+		local v182 = TweenInfo.new(
+			0.05,
+			Enum.EasingStyle.Linear,
+			Enum.EasingDirection.InOut,
+			0,
+			false,
+			0
+		)
+
+		local function f3251(p172)
+			if textBox.TextSize ~= up1 then
+				textBox.TextSize = up1
+			end
+			local v183 = textBox.AbsoluteSize.X
+			if p169.MaxWidth < v183 then
+				textBox.TextSize = math.max(math.floor(up1 * (p169.MaxWidth / v183)), up3)
+				v183 = p169.MaxWidth
+			end
+			local v184 = UDim2.fromOffset(v183 + v181, 22)
+			if p172 then
+				local t155 = _menu14
+				local Tween69 = t155.Tween
+				local t156 = { Size = v184 }
+				Tween69(t155, v176, t156, v182)
+			else
+				v176.Size = v184
+			end
+		end
+
+		local function f3252()
+			f3251(true)
+			if not p169.FocusLostOnly then
+				p169:Set(textBox.Text)
+			end
+		end
+
+		p171.Trove:Connect(textBox:GetPropertyChangedSignal("Text"), f3252)
+
+		local function f3253()
+			local t157 = _menu14
+			local Tween70 = t157.Tween
+			local v185 = textBox
+			local t158 = { TextColor3 = up2.get("Accent") }
+			Tween70(t157, v185, t158)
+		end
+
+		p171.Trove:Connect(textBox.Focused, f3253)
+
+		local function f3254()
+			local t159 = _menu14
+			local Tween71 = t159.Tween
+			local v186 = textBox
+			local t160 = { TextColor3 = up2.get("TextColor") }
+			Tween71(t159, v186, t160)
+			if p169.FocusLostOnly then
+				p169:Set(textBox.Text)
+			end
+		end
+
+		p171.Trove:Connect(textBox.FocusLost, f3254)
+
+		local function f3255(p173)
+			if not (textBox.Text == p173 or textBox:IsFocused()) then
+				textBox.Text = p173
+			end
+		end
+
+		p171.Trove:Connect(p169.ValueChanged, f3255)
+		if textBox.Text ~= p169.Value then
+			textBox.Text = p169.Value
+		end
+
+		local function f3256()
+			f3251(false)
+		end
+
+		p171.Trove:Add(task.defer(f3256))
+		return v176
+	end
+
+	local function f3257()
+		while up0.cache.S do
+		end
+		local t161 = { c = up1() }
+		up0.cache.S = t161
+		return t161.c
+	end
+
+	local function f3258()
+		if up0 == nil then
+			return
+		end
+		debug.setupvalue(up0.method, 2, up0.value)
+		up0 = nil
+	end
+
+	local function f3259(p174, p175)
+		local v187 = nil
+
+		local function f3260()
+			if v187 then
+				return up1.VOID_OK
+			end
+			local v188 = up2(up3, "MuzzleFlash")
+			if v188 == nil then
+				return (up1.err(
+					"NoMuzzleFlash",
+					"method_lookup",
+					"ClientViewModel.MuzzleFlash not found"
+				))
+			end
+			local t162 = { method = v188, value = debug.getupvalue(v188, 2) }
+			v187 = t162
+			debug.setupvalue(v188, 2, up4)
+			return up1.VOID_OK
+		end
+
+		local function f3261()
+			if v187 == nil then
+				return
+			end
+			debug.setupvalue(v187.method, 2, v187.value)
+			v187 = nil
+		end
+
+		local function f3262(p176)
+			if p176 then
+				p175:ReportResult(f3260())
+			else
+				f3261()
+			end
+		end
+
+		p174:Connect(up4:GetPropertyChangedSignal((table.create(2))), f3262)
+		if up4.data.Removables.NoMuzzleFlash then
+			p175:ReportResult(f3260())
+		end
+		p174:Add(f3261)
+	end
+
+	local function f3263()
+		up0.et()
+		up0.eE()
+		up0.eF()
+		up0.eD()
+		up0.eG()
+		local t163 = {}
+		function t163.ChamsRefresh()
+		end
+		function t163.HeadMarkerRefresh()
+		end
+		function t163.HeadMarkerTick()
+		end
+		function t163.SkeletonRefresh()
+		end
+		function t163.SkeletonTick()
+		end
+		function t163.TracerRefresh()
+		end
+		function t163.TracerTick()
+		end
+		return t163
+	end
+
+	local function f3264(p177, p178, p179, p180, p181, p182)
+		if p181 ~= up0 then
+			p180[p179] = nil
+			return p181
+		end
+		local v189 = p180[p179]
+		if not p177:_IsRandomSelectionValid(p178, p179, v189, p182) then
+			v189 = p177:_GetRandomForPool(p178, p179, p182)
+			p180[p179] = v189
+		end
+		return v189
+	end
+
+	local function f3265(p183, p184, p185, p186, p187)
+		local v190 = math.sqrt(p185)
+		local v191 = up0.new(p183, p187)
+		v191.Speed = v190
+		v191.Damper = p186 / (2 * v190)
+		v191.Target = p184
+		return v191
+	end
+
+	local function f3266(p188)
+		local t164 = {
+			_lines = p188,
+			_rotation = up0.data.CustomCrosshair.Rotation,
+			_edgeMode = "Vector",
+			_bakedAngle = 0,
+			_bakedActive = false,
+			_bakeSignature = "",
+			_bakeChangedAt = 0,
+			_warmed = {}
+		}
+		setmetatable(t164, up1)
+		return t164
+	end
+
+	local function f3267(p189, p190)
+		local t165 = {
+			_trove = up0.new("tripmine"),
+			_playerContext = p189,
+			_duelers = p190,
+			_tripmines = {}
+		}
+		local v192 = setmetatable(t165, up1)
+		v192:_Initialize()
+		return v192
+	end
+
+	local function f3268(p191)
+		p191._trove:Destroy()
+	end
+
+	local function f3269()
+		up0._tripmines[up1] = nil
+		up2:Remove(up3)
+	end
+
+	local function hitboxModule(p192)
+		local Hitbox4 = p192:WaitForChild("Hitbox", 3)
+		local v193 = nil
+		if Hitbox4 == nil then
+			return
+		end
+		local GetAttribute3 = p192:GetAttribute("EnvironmentID")
+		v193 = "PlacedByUserID"
+		local GetAttribute4 = p192:GetAttribute(v193)
+		v193 = p192
+		local v194 = p192.GetAttribute(v193, "TeamID")
+		v193 = up0._tripmines
+		local t166 = { environmentId = GetAttribute3, placedBy = GetAttribute4, teamId = v194 }
+		v193[Hitbox4] = t166
+		v193 = nil
+
+		local function on_Destroying()
+			up0._tripmines[Hitbox4] = nil
+			up2:Remove(v193)
+		end
+
+		v193 = Hitbox4.Destroying:Connect(on_Destroying)
+		up1:Add(v193)
+	end
+
+	local function hitboxModule2(p193)
+		local _trove7 = p193._trove
+
+		local function hitboxModule3(p194)
+			local Hitbox5 = p194:WaitForChild("Hitbox", 3)
+			local v195 = nil
+			if Hitbox5 == nil then
+				return
+			end
+			local GetAttribute5 = p194:GetAttribute("EnvironmentID")
+			v195 = "PlacedByUserID"
+			local GetAttribute6 = p194:GetAttribute(v195)
+			v195 = p194
+			local v196 = p194.GetAttribute(v195, "TeamID")
+			v195 = p193._tripmines
+			local t167 = { environmentId = GetAttribute5, placedBy = GetAttribute6, teamId = v196 }
+			v195[Hitbox5] = t167
+			v195 = nil
+
+			local function on_Destroying2()
+				p193._tripmines[Hitbox5] = nil
+				_trove7:Remove(v195)
+			end
+
+			v195 = Hitbox5.Destroying:Connect(on_Destroying2)
+			_trove7:Add(v195)
+		end
+
+		for _, v197 in up0:GetTagged("SubspaceTripmine") do
+			hitboxModule3(v197)
+		end
+		_trove7:Connect(up0:GetInstanceAddedSignal("SubspaceTripmine"), hitboxModule3)
+	end
+
+	local function fire_touch_interest(p195)
+		if not up0.data.Misc.SubspaceTripmines.AutoTrigger then
+			return
+		end
+		local inner32 = p195._playerContext.inner
+		if not inner32 then
+			return
+		end
+		local t168, t169
+		t169, t168 = next(p195._tripmines)
+		if t169 == nil then
+			return
+		end
+		local fighterState11 = inner32.fighterState
+		local v198 = p195._duelers.localState
+		local v199 = true
+		if t168.placedBy ~= up1 then
+			if v198 then
+				v198 = v198:TeamId() == t168.teamId
+			end
+			v199 = v198
+		end
+		if not (fighterState11.environmentID == t168.environmentId and
+			not (v199 and not up0.data.Misc.SubspaceTripmines.TeamTrigger)) then
+			return
+		end
+		v199 = v199 and 0.5 or 1
+		if t169.LocalTransparencyModifier ~= v199 then
+			return
+		end
+		local state14 = fighterState11.character.state
+		if not state14.alive then
+			return
+		end
+		local hitboxBody = state14.hitboxBody
+		firetouchinterest(t169, hitboxBody, 0)
+		firetouchinterest(t169, hitboxBody, 1)
+	end
+
+	local function fire_touch_interest2()
+		local v200 = up0.y()
+		up0.bz()
+		up0.a4()
+		local v201 = up0.q()
+		local collectionService = cloneref(game:GetService("CollectionService"))
+		local UserId = cloneref(game:GetService("Players")).LocalPlayer.UserId
+		local t170 = {}
+		t170.__index = t170
+
+		function t170.new(p196, p197)
+			local t171 = {
+				_trove = v201.new("tripmine"),
+				_playerContext = p196,
+				_duelers = p197,
+				_tripmines = {}
+			}
+			local v203 = setmetatable(t171, t170)
+			v203:_Initialize()
+			return v203
+		end
+
+		function t170:Destroy()
+			self._trove:Destroy()
+		end
+
+		function t170:_Initialize()
+			local _trove8 = self._trove
+
+			local function hitboxModule4(p198)
+				local Hitbox6 = p198:WaitForChild("Hitbox", 3)
+				local v204 = nil
+				if Hitbox6 == nil then
+					return
+				end
+				local GetAttribute7 = p198:GetAttribute("EnvironmentID")
+				v204 = "PlacedByUserID"
+				local GetAttribute8 = p198:GetAttribute(v204)
+				v204 = p198
+				local v205 = p198.GetAttribute(v204, "TeamID")
+				v204 = self._tripmines
+				local t172 = { environmentId = GetAttribute7, placedBy = GetAttribute8, teamId = v205 }
+				v204[Hitbox6] = t172
+				v204 = nil
+
+				local function on_Destroying3()
+					self._tripmines[Hitbox6] = nil
+					_trove8:Remove(v204)
+				end
+
+				v204 = Hitbox6.Destroying:Connect(on_Destroying3)
+				_trove8:Add(v204)
+			end
+
+			for _, v206 in collectionService:GetTagged("SubspaceTripmine") do
+				hitboxModule4(v206)
+			end
+			_trove8:Connect(collectionService:GetInstanceAddedSignal("SubspaceTripmine"), hitboxModule4)
+		end
+
+		function t170:Update()
+			if not v200.data.Misc.SubspaceTripmines.AutoTrigger then
+				return
+			end
+			local inner33 = self._playerContext.inner
+			if not inner33 then
+				return
+			end
+			local t173, t174
+			t174, t173 = next(self._tripmines)
+			if t174 == nil then
+				return
+			end
+			local fighterState12 = inner33.fighterState
+			local v207 = self._duelers.localState
+			local v208 = true
+			if t173.placedBy ~= UserId then
+				if v207 then
+					v207 = v207:TeamId() == t173.teamId
+				end
+				v208 = v207
+			end
+			if not (fighterState12.environmentID == t173.environmentId and
+				not (v208 and not v200.data.Misc.SubspaceTripmines.TeamTrigger)) then
+				return
+			end
+			v208 = v208 and 0.5 or 1
+			if t174.LocalTransparencyModifier ~= v208 then
+				return
+			end
+			local state15 = fighterState12.character.state
+			if not state15.alive then
+				return
+			end
+			local hitboxBody2 = state15.hitboxBody
+			firetouchinterest(t174, hitboxBody2, 0)
+			firetouchinterest(t174, hitboxBody2, 1)
+		end
+
+		return t170
+	end
+
+	local function f3279(p199, p200)
+		p199._catalog:SetIncludedRarities(p200)
+		p199:_RebuildCatalog()
+		p199:_FireStoresUpdated()
+	end
+
+	local function f3280()
+		up0._catalog:SetIncludedRarities(up1.rarities)
+		up0._catalog:SetIncludedTypes(up1.types)
+		up0._catalog:Build()
+		up0._items:StageImportedState(up1.itemSelections, up0:_BuildImportedActiveLayers(up1))
+		up0._onlyUseFavoritesState:ImportState(up1.onlyUseFavoritesSelections)
+		up0._favoritedIntent:ImportState(up1.favoritedCosmetics)
+		up0._emotes:GetIntent():ImportState(up1.emotes)
+		up0._rankCharm:SetAllOverrides(up1.rankCharmOverride)
+		up0._items:RefreshImportedState(true)
+	end
+
+	local function f3281(p201, p202)
+		p201._isImportingState = true
+		p201:SetRuntimeEnabled(false)
+
+		local function f3282()
+			p201._catalog:SetIncludedRarities(p202.rarities)
+			p201._catalog:SetIncludedTypes(p202.types)
+			p201._catalog:Build()
+			p201._items:StageImportedState(
+				p202.itemSelections,
+				p201:_BuildImportedActiveLayers(p202)
+			)
+			p201._onlyUseFavoritesState:ImportState(p202.onlyUseFavoritesSelections)
+			p201._favoritedIntent:ImportState(p202.favoritedCosmetics)
+			p201._emotes:GetIntent():ImportState(p202.emotes)
+			p201._rankCharm:SetAllOverrides(p202.rankCharmOverride)
+			p201._items:RefreshImportedState(true)
+		end
+
+		p201._items:WithFavoritesSuppressed(f3282)
+		p201._isImportingState = false
+		p201._unlockerController:SetLayerActive(p201._items:IsLayerActive(up0))
+		p201:SetRuntimeEnabled(p202.runtimeEnabled)
+	end
+
+	local function f3283(p203)
+		return (up0.export(p203:_BuildSnapshotContext()))
+	end
+
+	local function f3284(p204, p205, p206)
+		p204:_SetItemSelection(p205, p206, up0, true)
+	end
+
+	local function f3285()
+		up0._catalog:Build()
+	end
+
+	local function f3286(p207)
+		local function f3287()
+			p207._catalog:Build()
+		end
+
+		p207._items:WithFavoritesSuppressed(f3287)
+		p207._items:SyncAll(true)
+	end
+
+	local function f3288(p208)
+		p208.storesUpdated:Fire()
+	end
+
+	local function f3289(_, p209)
+		local t175 = {}
+		if p209.unlockerEnabled then
+			t175[up0] = true
+		end
+		if p209.skinChangerEnabled then
+			t175[up1] = true
+		end
+		return t175
+	end
+
+	local function f3290(p210, p211)
+		local t176 = up0.normalizeImport(p211)
+		if not t176.success then
+			local t177 = { success = false, message = t176.message }
+			return t177
+		end
+		p210:_ApplyImportedState(t176.state)
+		p210:_FireStoresUpdated()
+		local t178 = { success = true, message = "" }
+		return t178
+	end
+
+	local function f3291(p212, p213)
+		up0:_SetItemSelection(p212, p213, up1, true)
+	end
+
+	local function f3292(p214, p215, p216)
+		up0:_SetOnlyUseFavorites(p214, p215, p216)
+	end
+
+	local function f3293(p217, p218)
+		up0:_SetEmote(p217, p218, nil, false)
+	end
+
+	local function f3294(p219, p220)
+		up0.favoritedIntent:Set(p219, p220, not up0.favoritedIntent:Get(p219, p220))
+	end
+
+	local function f3295()
+		up0.userServerBridge:NotifyStoresUpdated()
+	end
+
+	local function f3296(p221, p222, p223, p224, p225, p226)
+		local t179 = up0.new("cosmetics")
+		local t180 = {
+			trove = t179,
+			playerContext = p221,
+			fighters = p222,
+			characterAppearances = p223,
+			dataHook = p224,
+			requestBinding = p225,
+			userServer = p226
+		}
+		local t181 = up1(t180)
+		local model = t181.model
+		local runtime3 = t181.runtime
+		local t182 = {
+			_trove = t179,
+			_catalog = model.catalog,
+			_items = model.items,
+			_favoritedIntent = model.favoritedIntent,
+			_onlyUseFavoritesState = model.onlyUseFavoritesState,
+			_emotes = model.emotes,
+			_rankCharm = model.rankCharm,
+			_unlockerController = nil,
+			_errorReporter = runtime3.errorReporter,
+			_runtimeEnabled = false,
+			_isImportingState = false,
+			storesUpdated = t179:Add(up2.new())
+		}
+		setmetatable(t182, up3)
+		local t183 = {}
+
+		function t183.isWrapInverted(p227)
+			local GetLayerSelections2 = model.items:GetLayerSelections(p227, up1)
+			if GetLayerSelections2 == nil then
+				return nil
+			end
+			local wrap4 = GetLayerSelections2.wrap
+			if wrap4 == nil then
+				return nil
+			end
+			local v209
+			v209 = wrap4.inverted == true
+			return v209
+		end
+
+		function t183.setItemSelection(p228, p229)
+			t182:_SetItemSelection(p228, p229, up1, true)
+		end
+
+		function t183.setOnlyUseFavorites(p230, p231, p232)
+			t182:_SetOnlyUseFavorites(p230, p231, p232)
+		end
+
+		function t183.setEmote(p233, p234)
+			t182:_SetEmote(p233, p234, nil, false)
+		end
+
+		function t183.toggleFavorited(p235, p236)
+			model.favoritedIntent:Set(p235, p236, not model.favoritedIntent:Get(p235, p236))
+		end
+
+		local Add50 = t179.Add
+		local new16 = up5.new
+		local t184 = {
+			dataHook = runtime3.dataHook,
+			catalog = model.catalog,
+			favoritedResolver = model.favoritedResolver,
+			onlyUseFavoritesState = model.onlyUseFavoritesState,
+			errorReporter = runtime3.errorReporter,
+			actions = t183
+		}
+		t182._unlockerController = Add50(t179, new16(t184))
+
+		local function f3297()
+			if t182._isImportingState then
+				return
+			end
+			t182:_FireStoresUpdated()
+		end
+
+		t179:Connect(model.favoritedResolver.changed, f3297)
+		t179:Connect(model.emotes:GetResolver().changed, f3297)
+		t179:Connect(model.rankCharm.changed, f3297)
+
+		local function f3298()
+			runtime3.userServerBridge:NotifyStoresUpdated()
+		end
+
+		t179:Connect(t182.storesUpdated, f3298)
+		return t182
+	end
+
+	local function f3299(p237)
+		local t185 = {
+			catalog = p237._catalog,
+			items = p237._items,
+			favoritedIntent = p237._favoritedIntent,
+			onlyUseFavoritesState = p237._onlyUseFavoritesState,
+			emotesIntent = p237._emotes:GetIntent(),
+			rankCharm = p237._rankCharm,
+			runtimeEnabled = p237._runtimeEnabled,
+			unlockerSelectionPriority = up0,
+			skinChangerSelectionPriority = up1
+		}
+		return t185
+	end
+
+	local function f3300(p238, p239, p240, p241, p242)
+		p238._items:SetChoice(p239, p240, p241)
+		if p242 then
+			p238:_FireStoresUpdated()
+		end
+	end
+
+	local function f3301(p243, p244, p245, p246)
+		local Set14 = p243._onlyUseFavoritesState:Set(p244, p245, p246)
+		if Set14 then
+			p243._items:SyncAll(false)
+			p243._items:RefreshDataIfEnabled()
+			p243:_FireStoresUpdated()
+		end
+		return Set14
+	end
+
+	local function f3302(p247)
+		return (p247._items:IsLayerActive(up0))
+	end
+
+	local function f3303(p248, p249, p250, p251)
+		p248:_ClearItemSelection(p249, p250, p251, true)
+	end
+
+	local function f3304(p252)
+		return (p252._items:IsLayerActive(up0))
+	end
+
+	local function f3305(p253, p254)
+		p253:_SetLayerActive(up0, p254)
+		p253._unlockerController:SetLayerActive(p254)
+	end
+
+	local function f3306(p255)
+		return p255._rankCharm
+	end
+
+	local function f3307(p256)
+		return (p256._errorReporter:GetErrors())
+	end
+
+	local function f3308(p257)
+		p257._emotes:PreRender()
+	end
+
+	local function f3309(p258, p259)
+		return (p258._items:GetLayerSelections(p259, up0))
+	end
+
+	local function f3310(p260, p261, p262, p263)
+		local _SetItemSelection = p260._SetItemSelection
+		if not p263 then
+			p263 = up0
+		end
+		_SetItemSelection(p260, p261, p262, p263, true)
+	end
+
+	local function f3311()
+		up0.bJ()
+		up0.g()
+		up0.cM()
+		local v210 = up0.cY()
+		local v211 = up0.ac()
+		local v212 = up0.c_()
+		local v213 = up0.c0()
+		up0.aT()
+		local v214 = up0.dy()
+		local t186 = up0.dz()
+		local v215 = up0.c1()
+		up0.a4()
+		local v216 = up0.c3()
+		up0.c4()
+		up0.b()
+		up0.c5()
+		local v217 = up0.t()
+		local v218 = up0.dA()
+		local v219 = up0.cU()
+		up0.cR()
+		local v220 = up0.q()
+		local v221 = up0.dM()
+		local v222 = up0.dX()
+		up0.dW()
+		local Unlocker = t186.Unlocker
+		local SkinChanger = t186.SkinChanger
+
+		local function f3312(p264)
+			local trove2 = p264.trove
+			local Add51 = trove2:Add(v211.new())
+			local Add52 = trove2:Add(v219.new())
+			local Add53 = trove2:Add(v212.new())
+			local Add54 = trove2:Add(v213.new(Add52, Add53))
+			local Add55 = trove2:Add(v215.new())
+			local Add56 = trove2:Add(v216.new())
+			local Add57 = trove2.Add
+			local new17 = v214.new
+			local t187 = {}
+			local t188 = { catalog = Add52, favoritedResolver = Add54, onlyUseFavoritesState = Add55 }
+			local t189 = { [SkinChanger] = true }
+			t188.catalogExemptLayers = t189
+			t188.dataMaskingExemptLayers = {}
+			t187.state = t188
+			local t190 = {
+				playerContext = p264.playerContext,
+				fighters = p264.fighters,
+				characterAppearances = p264.characterAppearances,
+				dataHook = p264.dataHook,
+				rankCharm = Add56,
+				errorReporter = Add51,
+				requestBinding = p264.requestBinding
+			}
+			t187.runtime = t190
+			local v223 = Add57(trove2, new17(t187))
+			local Add58 = trove2.Add
+			local new18 = v210.new
+			local t191 = {
+				catalog = Add52,
+				playerContext = p264.playerContext,
+				dataHook = p264.dataHook
+			}
+			local v224 = Add58(trove2, new18(t191))
+			local Add59 = trove2.Add
+			v222.new(p264.userServer, Add51, v223, v224:GetResolver())
+			local v225 = Add59()
+			local t192 = {}
+			local t193 = {
+				catalog = Add52,
+				favoritedIntent = Add53,
+				favoritedResolver = Add54,
+				onlyUseFavoritesState = Add55,
+				emotes = v224,
+				rankCharm = Add56,
+				items = v223
+			}
+			t192.model = t193
+			local t194 = { errorReporter = Add51, dataHook = p264.dataHook, userServerBridge = v225 }
+			t192.runtime = t194
+			return t192
+		end
+
+		local t195 = {}
+		t195.__index = t195
+
+		function t195:_FireStoresUpdated()
+			self.storesUpdated:Fire()
+		end
+
+		function t195:_BuildImportedActiveLayers(p265)
+			local t196 = {}
+			if p265.unlockerEnabled then
+				t196[Unlocker] = true
+			end
+			if p265.skinChangerEnabled then
+				t196[SkinChanger] = true
+			end
+			return t196
+		end
+
+		function t195:_BuildSnapshotContext()
+			local t197 = {
+				catalog = self._catalog,
+				items = self._items,
+				favoritedIntent = self._favoritedIntent,
+				onlyUseFavoritesState = self._onlyUseFavoritesState,
+				emotesIntent = self._emotes:GetIntent(),
+				rankCharm = self._rankCharm,
+				runtimeEnabled = self._runtimeEnabled,
+				unlockerSelectionPriority = Unlocker,
+				skinChangerSelectionPriority = SkinChanger
+			}
+			return t197
+		end
+
+		function t195:_SetLayerActive(p266, p267)
+			if self._items:IsLayerActive(p266) == p267 then
+				return false
+			end
+			self._items:SetLayerActive(p266, p267)
+			self:_FireStoresUpdated()
+			return true
+		end
+
+		function t195:_SetItemSelection(p268, p269, p270, p271)
+			self._items:SetChoice(p268, p269, p270)
+			if p271 then
+				self:_FireStoresUpdated()
+			end
+		end
+
+		function t195:_ClearItemSelection(p272, p273, p274, p275)
+			self._items:ClearItemSelection(p272, p273, p274)
+			if p275 then
+				self:_FireStoresUpdated()
+			end
+		end
+
+		function t195:_SetEmote(p276, p277, p278, p279)
+			local SetEmote2 = self._emotes:SetEmote(p276, p277, p278)
+			if SetEmote2 and p279 then
+				self:_FireStoresUpdated()
+			end
+			return SetEmote2
+		end
+
+		function t195:_RebuildCatalog()
+			local function f3313()
+				self._catalog:Build()
+			end
+
+			self._items:WithFavoritesSuppressed(f3313)
+			self._items:SyncAll(true)
+		end
+
+		function t195:SetUnlockedTypes(p280)
+			self._catalog:SetIncludedTypes(p280)
+			self:_RebuildCatalog()
+			self:_FireStoresUpdated()
+		end
+
+		function t195:SetUnlockedRarities(p281)
+			self._catalog:SetIncludedRarities(p281)
+			self:_RebuildCatalog()
+			self:_FireStoresUpdated()
+		end
+
+		function t195:_SetOnlyUseFavorites(p282, p283, p284)
+			local Set15 = self._onlyUseFavoritesState:Set(p282, p283, p284)
+			if Set15 then
+				self._items:SyncAll(false)
+				self._items:RefreshDataIfEnabled()
+				self:_FireStoresUpdated()
+			end
+			return Set15
+		end
+
+		function t195:RerollAll()
+			self._items:RerollAll()
+			self:_FireStoresUpdated()
+		end
+
+		function t195:_ApplyImportedState(p285)
+			self._isImportingState = true
+			self:SetRuntimeEnabled(false)
+
+			local function f3314()
+				self._catalog:SetIncludedRarities(p285.rarities)
+				self._catalog:SetIncludedTypes(p285.types)
+				self._catalog:Build()
+				self._items:StageImportedState(
+					p285.itemSelections,
+					self:_BuildImportedActiveLayers(p285)
+				)
+				self._onlyUseFavoritesState:ImportState(p285.onlyUseFavoritesSelections)
+				self._favoritedIntent:ImportState(p285.favoritedCosmetics)
+				self._emotes:GetIntent():ImportState(p285.emotes)
+				self._rankCharm:SetAllOverrides(p285.rankCharmOverride)
+				self._items:RefreshImportedState(true)
+			end
+
+			self._items:WithFavoritesSuppressed(f3314)
+			self._isImportingState = false
+			self._unlockerController:SetLayerActive(self._items:IsLayerActive(Unlocker))
+			self:SetRuntimeEnabled(p285.runtimeEnabled)
+		end
+
+		function t195:ExportState()
+			return (v218.export(self:_BuildSnapshotContext()))
+		end
+
+		function t195:ImportState(p286)
+			local t198 = v218.normalizeImport(p286)
+			if not t198.success then
+				local t199 = { success = false, message = t198.message }
+				return t199
+			end
+			self:_ApplyImportedState(t198.state)
+			self:_FireStoresUpdated()
+			local t200 = { success = true, message = "" }
+			return t200
+		end
+
+		function t195.new(p287, p288, p289, p290, p291, p292)
+			local t201 = v220.new("cosmetics")
+			local t202 = {
+				trove = t201,
+				playerContext = p287,
+				fighters = p288,
+				characterAppearances = p289,
+				dataHook = p290,
+				requestBinding = p291,
+				userServer = p292
+			}
+			local t203 = f3312(t202)
+			local model2 = t203.model
+			local runtime4 = t203.runtime
+			local t204 = {
+				_trove = t201,
+				_catalog = model2.catalog,
+				_items = model2.items,
+				_favoritedIntent = model2.favoritedIntent,
+				_onlyUseFavoritesState = model2.onlyUseFavoritesState,
+				_emotes = model2.emotes,
+				_rankCharm = model2.rankCharm,
+				_unlockerController = nil,
+				_errorReporter = runtime4.errorReporter,
+				_runtimeEnabled = false,
+				_isImportingState = false,
+				storesUpdated = t201:Add(v217.new())
+			}
+			setmetatable(t204, t195)
+			local t205 = {}
+
+			function t205.isWrapInverted(p293)
+				local GetLayerSelections3 = model2.items:GetLayerSelections(p293, Unlocker)
+				if GetLayerSelections3 == nil then
+					return nil
+				end
+				local wrap5 = GetLayerSelections3.wrap
+				if wrap5 == nil then
+					return nil
+				end
+				local v226
+				v226 = wrap5.inverted == true
+				return v226
+			end
+
+			function t205.setItemSelection(p294, p295)
+				t204:_SetItemSelection(p294, p295, Unlocker, true)
+			end
+
+			function t205.setOnlyUseFavorites(p296, p297, p298)
+				t204:_SetOnlyUseFavorites(p296, p297, p298)
+			end
+
+			function t205.setEmote(p299, p300)
+				t204:_SetEmote(p299, p300, nil, false)
+			end
+
+			function t205.toggleFavorited(p301, p302)
+				model2.favoritedIntent:Set(
+					p301,
+					p302,
+					not model2.favoritedIntent:Get(p301, p302)
+				)
+			end
+
+			local Add60 = t201.Add
+			local new19 = v221.new
+			local t206 = {
+				dataHook = runtime4.dataHook,
+				catalog = model2.catalog,
+				favoritedResolver = model2.favoritedResolver,
+				onlyUseFavoritesState = model2.onlyUseFavoritesState,
+				errorReporter = runtime4.errorReporter,
+				actions = t205
+			}
+			t204._unlockerController = Add60(t201, new19(t206))
+
+			local function f3315()
+				if t204._isImportingState then
+					return
+				end
+				t204:_FireStoresUpdated()
+			end
+
+			t201:Connect(model2.favoritedResolver.changed, f3315)
+			t201:Connect(model2.emotes:GetResolver().changed, f3315)
+			t201:Connect(model2.rankCharm.changed, f3315)
+
+			local function f3316()
+				runtime4.userServerBridge:NotifyStoresUpdated()
+			end
+
+			t201:Connect(t204.storesUpdated, f3316)
+			return t204
+		end
+
+		function t195:SetRuntimeEnabled(p303)
+			if self._runtimeEnabled == p303 then
+				return
+			end
+			self._runtimeEnabled = p303
+			self._unlockerController:SetMasterEnabled(p303)
+			self._errorReporter:ReportResult(self._emotes:SetEnabled(p303))
+			self._items:SetEnabled(p303)
+		end
+
+		function t195:SetChoice(p304, p305, p306)
+			local _SetItemSelection2 = self._SetItemSelection
+			if not p306 then
+				p306 = Unlocker
+			end
+			_SetItemSelection2(self, p304, p305, p306, true)
+		end
+
+		function t195:ClearItemSelection(p307, p308, p309)
+			self:_ClearItemSelection(p307, p308, p309, true)
+		end
+
+		function t195.IsUnlockerEnabled(p310)
+			return (p310._items:IsLayerActive(Unlocker))
+		end
+
+		function t195:SetUnlockerEnabled(p311)
+			self:_SetLayerActive(Unlocker, p311)
+			self._unlockerController:SetLayerActive(p311)
+		end
+
+		function t195.IsSkinChangerEnabled(p312)
+			return (p312._items:IsLayerActive(SkinChanger))
+		end
+
+		function t195:SetSkinChangerEnabled(p313)
+			self:_SetLayerActive(SkinChanger, p313)
+		end
+
+		function t195.SetSkinChangerChoice(p314, p315, p316)
+			p314:_SetItemSelection(p315, p316, SkinChanger, true)
+		end
+
+		function t195.ClearSkinChangerSelection(p317, p318, p319)
+			p317:_ClearItemSelection(p318, p319, SkinChanger, true)
+		end
+
+		function t195:GetSkinChangerSelections(p320)
+			return (self._items:GetLayerSelections(p320, SkinChanger))
+		end
+
+		function t195:GetRankCharm()
+			return self._rankCharm
+		end
+
+		function t195.GetHookErrors(p321)
+			return (p321._errorReporter:GetErrors())
+		end
+
+		function t195:PreRender()
+			self._emotes:PreRender()
+		end
+
+		function t195:Destroy()
+			self:SetRuntimeEnabled(false)
+			self._trove:Destroy()
+		end
+
+		return t195
+	end
+
+	local function f3317(p322)
+		local _ = setmetatable
+		local t207 = {
+			_objs = {},
+			_name = p322
+		}
+		return (setmetatable(t207, up0))
+	end
+
+	local function f3318()
+		local zK2 = zK
+		local v227
+		v227 = 0 < #(72394)[3]
+		zK2(v227 and {})
+		local function f3319()
+		end
+		return f3319
+	end
+
+	local function f3320(p323, p324, p325)
+		local v228 = false
+		local item3 = up0.item
+		local v229, v230
+		while true do
+			local v231
+			v229, v231 = item3(nil, v229)
+			if v229 == nil then
+				break
+			end
+			local v232 = p323._onlyUseFavoritesState:GetOrNil(p324, v231)
+			if v232 ~= nil then
+				if p325 == nil then
+					p325 = {}
+				end
+				local v233 = up1(p325, v231)
+				local v234 = nil
+				if type(v233) == up2 then
+					v234 = up1(v233, "Name")
+				end
+				if not (v234 == nil or v234 == up3) then
+					v228 = true
+					v230 = type(v233) == up2
+					v230 = v230 and table.clone(v233) or {}
+					v232 = v232 and true or nil
+					v230.OnlyUseFavorites = v232
+					up4(p325, v231, v230)
+				end
+			end
+		end
+		return p325, v228
+	end
+
+	local function f3321(p326, p327, p328)
+		for _, v235 in p327:GetChildren() do
+			if v235:IsA("UIStroke") then
+				up0(p326, v235, p328)
+			end
+		end
+	end
+
+	local function f3322(p329, p330)
+		local v236 = up0(p330, "Player")
+		if v236 == up1 or p329.byPlayer[v236] then
+			return
+		end
+		p329.byPlayer[v236] = p330
+		p329.onRemoteDuelerAdded:Fire(p330)
+	end
+
+	local function f3323()
+		up0()
+	end
+
+	local function f3324(p331)
+		local _currentTarget = p331._currentTarget
+		if _currentTarget == nil then
+			return nil
+		end
+		local t208 = up0(_currentTarget, up1.data.Aimbot.Target)
+		if t208 == nil then
+			return nil
+		end
+		local t209 = { target = _currentTarget, screenPosition = t208.screen }
+		return t209
+	end
+
+	local function f3325(...)
+		up0.onRemoteEntityAdded:Fire(up1, nil)
+	end
+
+	local function f3326()
+		local t210 = up0.cache.e0
+		if not t210 then
+			t210 = { c = up1() }
+			up0.cache.e0 = t210
+		end
+		return t210.c
+	end
+
+	local function f3327()
+	end
+
+	local function f3328(p332, p333, p334)
+		p332._trove:Connect(p333, p334)
+		return p332
+	end
+
+	local function f3329(p335, p336)
+		local _panel5 = p335._panel
+		if _panel5 == nil then
+			return
+		end
+		local v237 = string.lower(p336)
+		local Rows3 = _panel5.Rows
+		local v238, v239
+		while true do
+			local t211
+			v238, t211 = Rows3(nil, v238)
+			if v238 == nil then
+				break
+			end
+			local Button = t211.Button
+			v239 = not (string.find(string.lower(t211.Button.Text), v237, 1, true) == nil)
+			Button.Visible = v239
+		end
+		_panel5.Scroll.CanvasPosition = Vector2.zero
+	end
+
+	local function f3330(p337, p338)
+		local v240 = p337.Options[p338]
+		if v240 == nil then
+			return
+		end
+		if not p337.Multi then
+			p337:Set(v240)
+			local _panel6 = p337._panel
+			if p337.CloseOnSelect and _panel6 ~= nil then
+				_panel6.Popup:SetOpen(false)
+			end
+			return
+		end
+		local t212 = {}
+		local Value31 = p337.Value
+		if type(Value31) == up0 then
+			local v241 = nil
+			while true do
+				local _
+				v241, _ = Value31(nil, v241)
+				if v241 == nil then
+					break
+				end
+				t212[v241] = true
+			end
+		end
+		if t212[v240] then
+			t212[v240] = nil
+		else
+			t212[v240] = true
+		end
+		p337:Set(t212)
+	end
+
+	local function f3331()
+		if up0.Popup:IsOpen() then
+			up1(up2, up3)
+		end
+	end
+
+	local function f3332(p339, p340, p341)
+		local textButton2 = Instance.new("TextButton")
+		textButton2.AutoButtonColor = false
+		textButton2.BackgroundTransparency = 1
+		textButton2.TextColor3 = up0.get("Unselected")
+		textButton2.Text = ""
+		textButton2.Size = UDim2.new(1, 0, 0, up1)
+		textButton2.ClipsDescendants = true
+		textButton2.TextXAlignment = Enum.TextXAlignment.Left
+		textButton2.BorderSizePixel = 0
+		textButton2.TextSize = 16
+		textButton2.FontFace = p339._menu.Fonts.Main
+		textButton2.LayoutOrder = p341
+		textButton2.Parent = p340.Scroll
+		local uiPadding3 = Instance.new("UIPadding")
+		uiPadding3.PaddingTop = UDim.new(0, 5)
+		uiPadding3.PaddingBottom = UDim.new(0, 5)
+		uiPadding3.PaddingRight = UDim.new(0, 5)
+		uiPadding3.PaddingLeft = UDim.new(0, 5)
+		uiPadding3.Parent = textButton2
+		local imageLabel2 = Instance.new("ImageLabel")
+		imageLabel2.Image = up2
+		imageLabel2.ImageColor3 = up0.get("TextColor")
+		imageLabel2.ImageTransparency = 1
+		imageLabel2.BackgroundTransparency = 1
